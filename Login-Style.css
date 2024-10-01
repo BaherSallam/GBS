@@ -1,0 +1,65 @@
+*{
+    padding: 12PX;
+    font-family: 'MONTSERRAT';
+}
+body{
+    padding: 50px;
+    margin-top: 15vh;
+    border-radius: 50px;
+    backdrop-filter: blur(50px);
+    display: grid;
+    justify-content: center;
+    text-align: center;
+    background-image: url('2.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+h1{
+    color: white;
+    
+}
+#randomCodeDisplay{
+    color:blue;
+    user-select: none;
+    -webkit-user-select: none;
+    font-size: xx-large;
+}
+
+#code{
+    font-size: xx-large;
+    border-radius: 50px;
+    outline: none;
+    background: none;
+}
+
+
+label{
+    font-size: xx-large;
+}
+
+#submit{
+    width: 50%;
+    height: 50%;
+    padding: 16px;
+    color: gray;
+    background-color: azure;
+    border-radius: 50px;
+    border: none;
+    font-size: x-large;
+    cursor: pointer;
+}
+
+#submit{
+    
+    width: 200px;
+    height: 70px;
+    
+    border:black ridge 1px;
+
+}
+
+#s{
+    size: 5px;
+    border:black ridge 1px;
+
+}

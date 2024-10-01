@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GBS Iam not a robot</title>
+    <link rel="stylesheet" href="Login-Style.css">
+</head>
+<body>
+    <style></style>
+    <h1>Enter The Code To Make Sure You Are Not A Robot</h1>
+    <div id="randomCodeDisplay"></div>
+    <div id="loginStatus"></div>
+    <form id="loginForm">
+        <label for="code">Enter the code:</label><br>
+        <input type="text" id="code" required><br><br>
+        <input type="submit" id="submit" value="Submit">
+    </form>
+
+    <script>
+        var generatedCode = generateCode(); // Generate random code
+        document.getElementById("randomCodeDisplay").innerText = "Random Code: " + generatedCode;
+
+        var attempts = 3; 
+
+        document.getElementById("loginForm").addEventListener("submit", function(event) {
+            event.preventDefault(); 
+            var enteredCode = document.getElementById("code").value;
+            if (enteredCode === generatedCode) {
+                alert("Login successful!");
+                window.location = 'index_Main-Webpage.html'
+            } else {
+                attempts--;
+                if (attempts > 0) {
+                    document.getElementById("loginStatus").innerText = "Incorrect code. " + attempts + " attempts left.";
+                } else {
+                    alert("You've exceeded the number of attempts.");
+                    
+                }
+            }
+        });
+
+        function generateCode() {
+            var characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            var code = '';
+            for (var i = 0; i < 4; i++) {
+                code += characters.charAt(Math.floor(Math.random() * characters.length));
+            }
+            return code;
+        }
+    </script>
+</body>
+</html>

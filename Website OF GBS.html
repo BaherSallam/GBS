@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Basic School</title>
+    
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap">
+    <style>
+        body {
+            font-family: 'Comic Sans MS';
+            margin: 0;
+            padding: 0;
+            color: #333;
+            overflow-x: hidden;
+            display: none; /* Hide the body initially */
+        }
+
+        /* Loader Styles */
+/* Loader Styles */
+.loader-wrapper {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100vh; /* Full viewport height */
+    background: #f0f0f0;
+    display: flex;
+    flex-direction: column; /* Stack items vertically */
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    text-align: center;
+}
+
+.loader {
+    position: relative;
+    width: 60%;
+    height: 6px; /* Height of the loading line */
+    background: #ddd;
+    border-radius: 3px;
+    overflow: hidden;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    margin-top: 20px; /* Space between text and loading bar */
+}
+
+.loader-bar {
+    height: 100%;
+    background: linear-gradient(90deg, #ff5722, #ff9800);
+    width: 0%; /* Start at 0% width */
+    border-radius: 3px;
+    transition: width 3s ease-in-out; /* Smooth transition */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+@keyframes loadAnimation {
+    from { width: 0%; }
+    to { width: 100%; }
+}
+
+.loader-bar {
+    animation: loadAnimation 3s ease-in-out; /* Animate from 0% to 100% */
+}
+
+/* Center the text inside the loader */
+.loader-wrapper h1 {
+    font-size: 2rem;
+    color: #333;
+    z-index: 2; /* Make sure it appears above the loader */
+}
+
+
+        /* Main Content Styles */
+        header {
+            background-color: #fff;
+            padding: 20px;
+            color: #333;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        nav ul li {
+            margin: 0 15px;
+        }
+
+        nav ul li a {
+            color: #333;
+            text-decoration: none;
+            font-weight: bold;
+            position: relative;
+            padding: 5px;
+        }
+
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -5px;
+            width: 100%;
+            height: 2px;
+            background-color: #ff5722;
+            transform: scaleX(0);
+            transform-origin: bottom right;
+            transition: transform 0.3s ease-out;
+        }
+
+        nav ul li a:hover::after {
+            transform: scaleX(1);
+            transform-origin: bottom left;
+        }
+
+        .hero {
+            background-image: url('Icon.png'); /* Replace with your image */
+            background-size: cover;
+            background-position: center;
+            color: #fff;
+            padding: 100px 20px;
+            text-align: center;
+            position: relative;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 600px;
+            margin: 0 auto;
+            animation: fadeInUp 1.5s ease-out;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin: 0 0 20px;
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            margin: 0;
+        }
+
+        .btn {
+            background-color: #ff5722;
+            color: #fff;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            display: inline-block;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #e64a19;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .programs-grid, .news-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .program-item, .news-item {
+            background-color: #f4f4f4;
+            padding: 20px;
+            border-radius: 8px;
+            width: calc(33.333% - 20px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .program-item:hover, .news-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+        }
+
+        .social-links a {
+            margin: 0 10px;
+            color: #fff;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: #ff5722;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+    </style>
+</head>
+<body>
+    
+    <!-- Loader -->
+    <div class="loader-wrapper">
+        <h1>Loading</h1>
+        <div class="loader">
+            
+            <div class="loader-bar"></div>
+            
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Header -->
+        <header>
+            <div class="container">
+                <div class="logo">
+                    <h1>Global Basic School</h1>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#programs">Programs</a></li>
+                        <li><a href="#news">News</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <!-- Hero Section -->
+        <section id="home" class="hero">
+            <div class="hero-content">
+                <h1>Welcome to Global Basic School</h1>
+                <p>Providing Quality Education for a Brighter Future</p>
+                <a href="#contact" class="btn">Get in Touch</a>
+            </div>
+        </section>
+
+        <!-- About Us Section -->
+        <section id="about" class="container">
+            <h2 class="section-title">About Us</h2>
+            <p>Global Basic School is committed to providing a holistic education that nurtures young minds and prepares them for future challenges.</p>
+        </section>
+
+        <!-- Programs Section -->
+        <section id="programs" class="container">
+            <h2 class="section-title">Our Programs</h2>
+            <div class="programs-grid">
+                <div class="program-item">
+                    <h3>Primary Education</h3>
+                    <p>Engaging and comprehensive curriculum for young learners.</p>
+                </div>
+                <div class="program-item">
+                    <h3>Secondary Education</h3>
+                    <p>Preparing students for higher education with advanced subjects.</p>
+                </div>
+                <div class="program-item">
+                    <h3>Extracurricular Activities</h3>
+                    <p>Enrichment programs to develop skills beyond the classroom.</p>
+                </div>
+                
+            </div>
+        </section>
+
+        <!-- News Section -->
+        <section id="news" class="container">
+            <h2 class="section-title">Latest News</h2>
+            <div class="news-grid">
+                <div class="news-item">
+                    <h4>New Curriculum Launched</h4>
+                    <p>We are excited to announce our new curriculum designed to enhance learning experiences.</p>
+                </div>
+                <div class="news-item">
+                    <h4>Annual Sports Day</h4>
+                    <p>Join us for a day of fun and competition at our annual sports event.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="container">
+            <h2 class="section-title">Contact Us</h2>
+            <form action="submit_form.php" method="post">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+                <label for="message">Message:</label>
+                <textarea id="message" name="message" required></textarea>
+                <button type="submit" class="btn">Send</button>
+            </form>
+        </section>
+
+        <!-- Footer -->
+        <footer>
+            <div class="container">
+                <p>&copy; 2024 Global Basic School. All rights reserved.</p>
+                <div class="social-links">
+                    <a href="#">Facebook</a>
+                    <a href="#">Twitter</a>
+                    <a href="#">LinkedIn</a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        window.addEventListener('load', function() {
+            document.body.style.display = 'block'; // Ensure body is visible
+
+            // Simulate loading time
+            const loadingTime = 3000; // 3 seconds
+
+            // Start loading animation
+            document.querySelector('.loader-bar').style.width = '100%';
+
+            // Hide loader after the animation
+            setTimeout(() => {
+                document.querySelector('.loader-wrapper').style.opacity = '0';
+                setTimeout(() => {
+                    document.querySelector('.loader-wrapper').style.display = 'none';
+                }, 5000); // Fade out duration
+            }, loadingTime); // Duration of the loading
+        });
+
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+
+</body>
+</html>
